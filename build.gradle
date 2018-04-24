@@ -1,0 +1,40 @@
+group = 'io.pnyx.coinapse'
+version = '0.0.1-SNAPSHOT'
+
+subprojects { p ->
+    p.buildscript {
+        ext.kotlin_version = "1.2.40"
+
+        repositories {
+            mavenLocal()
+            jcenter()
+            maven { url "http://dl.bintray.com/kotlin/kotlin-eap" }
+        }
+        
+        dependencies {
+            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+            classpath "org.jetbrains.kotlin:kotlin-frontend-plugin:0.0.30"
+        }
+    }
+}
+
+subprojects {
+    ext.kotlin_version = "1.2.40"
+    ext.html_version = "0.6.9"
+    ext.ktor_version = "0.9.2"
+    ext.squash_version = "0.2.2"
+    ext.exposed_version = "0.10.2"
+    repositories {
+        mavenLocal()
+        jcenter()
+        maven { url "http://dl.bintray.com/kotlin/kotlinx.html" }
+        maven { url "http://dl.bintray.com/kotlin/ktor" }
+        maven { url "https://dl.bintray.com/kotlin/squash" }
+        maven { url "https://dl.bintray.com/kotlin/exposed" }
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.7'
+}
+
