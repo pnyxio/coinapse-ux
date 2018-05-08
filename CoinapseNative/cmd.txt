@@ -1,0 +1,25 @@
+react-native init Xxx
+cp -a boilerplate/* Xxx/
+cd Xxx/
+gradle wrapper
+./gradlew compileKotlin2Js
+yarn add file:./build/node_modules_imported/kotlin-react/ file:./build/node_modules_imported/kotlin-extensions/ file:./build/node_modules_imported/kotlin/
+yarn add --dev haul source-map
+yarn haul init
+yarn haul start -- --platform android
+
+
+
+
+./gradlew bundle
+
+
+
+=========== fix common Main.kt
+
+fix haul config
+
+
+
+yarn add source-map-loader // --dev ??
+yarn add react-router-native

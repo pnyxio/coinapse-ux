@@ -13,7 +13,7 @@ fun main(args: Array<String>) {
     val server = embeddedServer(Netty, port = 9090) {
         install(StatusPages) {
             status(HttpStatusCode.NotFound) {
-                call.respond(TextContent("${it.value} ${it.description} MIKI WAS HERE", ContentType.Text.Plain.withCharset(Charsets.UTF_8), it))
+                call.respond(TextContent("${it.value} ${it.description}", ContentType.Text.Plain.withCharset(Charsets.UTF_8), it))
             }
         }
         routing {

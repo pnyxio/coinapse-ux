@@ -1,0 +1,65 @@
+/*
+ext {
+    appSuffix = project.hasProperty('rnw') ? '-rnw' : ''
+}
+*/
+buildscript {
+    ext.kotlin_version = '1.2.41'
+
+    repositories {
+        jcenter()
+        maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+    }
+
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath "org.jetbrains.kotlin:kotlin-frontend-plugin:0.0.30"
+    }
+}
+
+group = 'com.nominanuda'
+version = '0.0.1-SNAPSHOT'
+
+apply plugin: 'kotlin2js'
+apply plugin: 'org.jetbrains.kotlin.frontend'
+
+repositories {
+    mavenCentral()
+    jcenter()
+    maven {
+        url  "https://kotlin.bintray.com/kotlin-js-wrappers"
+    }
+    maven {
+        url  "https://dl.bintray.com/kotlin/kotlinx.html"
+    }
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+
+    compile 'org.jetbrains:kotlin-extensions:1.0.1-pre.25-kotlin-1.2.30'
+    compile 'org.jetbrains:kotlin-react:16.3.1-pre.25-kotlin-1.2.30'
+    compile 'org.jetbrains:kotlin-react-dom:16.3.1-pre.25-kotlin-1.2.30'
+    compile 'org.jetbrains.kotlinx:kotlinx-html:0.6.9'
+
+
+
+}
+
+
+compileKotlin2Js {
+    kotlinOptions.metaInfo = true
+    kotlinOptions.outputFile = "$project.buildDir.path/js/app.js"
+    kotlinOptions.sourceMap = true
+    kotlinOptions.sourceMapEmbedSources = "always"
+    //kotlinOptions.sourceMapPrefix = "./"
+    kotlinOptions.moduleKind = 'commonjs'
+    kotlinOptions.main = "call"
+}
+
+//copyKotlinJs.into "${projectDir}/web/js/lib"
+
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.7-rc-1'
+}

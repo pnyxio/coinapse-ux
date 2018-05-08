@@ -1,4 +1,4 @@
 rootProject.name = 'coinapse'
 
-include "backend", "frontend"
+include "backend", "frontend", "CoinapseNative"
 
