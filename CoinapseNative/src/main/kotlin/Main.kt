@@ -1,123 +1,26 @@
+import kotlinext.js.js
+import kotlinext.js.jsObject
 import react.*
 import react.native.*
+import react.redux.Provider
 import react.router.native.Link
 import react.router.native.NativeRouter
 import react.router.native.Route
+import redux.applyMiddleware
+import redux.combineReducers
+import redux.compose
+import redux.createStore
 
-class MenuProps : RProps
 
-val navigationView : () -> ReactElement? = {
-    buildElement {
-        View {
-            Text {
-                +"hdjhhjdsjfdjjkjhdsfj"
-            }
-            Link {
-                attrs {
-                    to = "/"
-                }
-                Text {
-                    +"HOME"
-                }
-            }
-            Link {
-                attrs {
-                    to = "/about"
-                }
-                Text {
-                    +"ABOUT"
-                }
-            }
-        }
-    }
-}
 
-class App(props: RProps) : RComponent<RProps, RState>(props) {
 
-  override fun RBuilder.render(): dynamic {
-    return NativeRouter {
-          DrawerLayoutAndroid {
-              attrs {
-                  drawerWidth = 300
-                  renderNavigationView = navigationView
-//                      Menu(MenuProps())
-                  }//navigationView//Menu::class.js
-              View {
-                  Route {
-                      attrs {
-                          path = "/"
-                          exact = true
-                          component = Home::class.js
-                      }
-                  }
-                  Route {
-                      attrs {
-                          path = "/about"
-                          component = About::class.js
-                      }
-                  }
-              }
-              }
-          }
-  }
-}
 
-fun RBuilder.app() = child(App::class) {
-
-}
-
-fun RBuilder.menu() = child(Menu::class) {
-
-}
-
-class Menu(props: RProps) : RComponent<RProps, RState>(props) {
-
-    override fun RBuilder.render(): Unit {
-        Link {
-            attrs {
-                to = "/"
-            }
-            Text {
-                +"HOME"
-            }
-        }
-        Link {
-            attrs {
-                to = "/about"
-            }
-            Text {
-                +"ABOUT"
-            }
-        }
-    }
-}
-
-class Home(props: RProps) : RComponent<RProps, RState>(props) {
-
-    override fun RBuilder.render(): dynamic {
-        return View {
-            Text {
-                    +"HOME !!!!!!!!!!!!!!!!!"
-                }
-            }
-    }
-}
-
-class About(props: RProps) : RComponent<RProps, RState>(props) {
-
-    override fun RBuilder.render(): dynamic {
-        return View {
-            Text {
-                +"ABOUT !!!!!!!!!!!!!!!!!"
-            }
-        }
-    }
-}
 
 
 
 fun main(args: Array<String>) {
-  AppRegistry.registerComponent<App>("CoinapseNative") {
+
+    AppRegistry.registerComponent<App>("CoinapseNative") {
     App::class.js
   }
 }

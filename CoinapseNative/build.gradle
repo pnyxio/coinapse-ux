@@ -42,7 +42,7 @@ dependencies {
     compile 'org.jetbrains:kotlin-react-dom:16.3.1-pre.25-kotlin-1.2.30'
     compile 'org.jetbrains.kotlinx:kotlinx-html:0.6.9'
 
-
+    compile 'com.nominanuda:kjs-externals:1.0.0-pre.1-kotlin-1.2.40'
 
 }
 
