@@ -1,65 +1,69 @@
 package screen
 
 import AppState
-import jsVanillize
+import common.*
+import kotlinext.js.JsFunction1
+import kotlinext.js.invoke
 import kotlinext.js.jsObject
 import react.*
+import react.native.Image
 import react.native.Text
 import react.native.View
 import react.redux.connect
 import redux.bindActionCreators
 import styles
 
-class HomeProps(val name : String = "name_not_set") : RProps {
+interface HomeProps : RProps
+{
+    var name : String
+}
 
+interface HomeState : HomeProps {
 }
 
 class Home(props: HomeProps) : RComponent<HomeProps, RState>(props) {
-
     override fun RBuilder.render(): dynamic {
         return View {
             attrs {
-                style = styles.common
+                style = styles.common//TODO manage style top down from home ??
             }
-            Text {
-                + "Hello  !!!!"
-                + props.name
+
+            View {
+                Image {
+                    attrs {
+                        source = kotlinext.js.require("../../src/main/kotlin/img/boxed_cross_32.png")
+                    }
+                }
+            }
+            View {
+                Text {
+                    + "Hello  !!!!"
+                    + props.name
+                }
             }
         }
     }
 }
 
-fun RBuilder.home(): ReactElement {//Any
-//TODO mapStateToProps() in Connect(screen.Home) must return a plain object. Instead received [object Object].
-    //??? change proto ctor dynamically :-D
+val homeReducer : Reducer<HomeState> = fun(state : HomeState?, action : dynamic): HomeState {
+    if (state == null) return jsObject<HomeState> { name = "my lord3" }//js {}
+    return state.copyToDyn {
+        name = "buzzurro"
+    }
+}
 
-    val mapStateToProps : (AppState) -> HomeProps =  { state : AppState ->
-        HomeProps(name = "my lord3").jsVanillize()
-    }// as screen.HomeProps if different js mapper
 
-/*
-    val mapStateToProps : (AppState) -> dynamic =  { state : AppState ->
-        jsObject<dynamic> {//TODO jsObject<dynamic> can we introduce typedef  jsObject<dynamic> jsObj jsDyn etc ??
-            name = "my lord"
-        }
-    }// as screen.HomeProps if different js mapper
-*/
+fun RBuilder.home(): ReactElement {
+    //AppState) -> HomeProps
+    val mapStateToProps : ToPropsMapper<AppState> =  { state : AppState ->
+        state.home
+    }
 
-    val mapDispatchToProps = {dispatch :Any ->
+    val mapDispatchToProps : DispatchToPropsMapper<HomeProps> = {dispatch : Dispatch ->
         bindActionCreators(jsObject<HomeProps>{
-/*
-            increment = CounterActionCreators.increment//dispatchable(js {type = "MIAO"})
-            incrementAsync = CounterActionCreators.incrementAsync
-            decrement = CounterActionCreators.decrement
-            decrementAsync = CounterActionCreators.decrementAsync
-            changePage  = {react.router.redux.push("/about-us")}
-*/
         }, dispatch)
     }
-//    val conn : JsClass<Any> = connect(mapStateToProps, mapDispatchToProps)(screen.Home::class.js)
-//    val rClass = conn as RClass<screen.HomeProps>
-    //return rClass({})
 
-    return (connect(mapStateToProps, mapDispatchToProps)(Home::class.js) as RClass<HomeProps>)({})
-    //return reduxConnect(screen.Home::class.js, mapStateToProps, mapDispatchToProps)
+    return (connect(mapStateToProps, mapDispatchToProps)(Home::class.js))()
 }
+

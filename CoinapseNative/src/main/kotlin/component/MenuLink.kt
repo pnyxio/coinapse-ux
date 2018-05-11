@@ -17,29 +17,33 @@ interface MenuLinkProps : StylableProps {
     var title : String
 }
 
+
 class MenuLink(props: MenuLinkProps) : RComponent<MenuLinkProps, RState>(props) {
     override fun RBuilder.render() {
-        Link {
+        View {
             attrs {
-                to = props.to
+                style = js {
+                    backgroundColor = "red"
+                    flex = 1
+                    flexDirection = "row"
+                }
             }
             View {
-
-                attrs {
-                    style = js {
-                        backgroundColor = "red"
-                        //flex = 1
-                    }
-                }
-/*
                 Image {
                     attrs {
                         source = require("../../src/main/kotlin/img/boxed_cross_32.png")
                     }
                 }
-*/
-                Text {
-                    + props.title
+            }
+            View {
+                Link {
+                    attrs {
+                        to = props.to
+                    }
+
+                    Text {
+                        +props.title
+                    }
                 }
             }
         }

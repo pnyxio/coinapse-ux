@@ -2,6 +2,7 @@ package screen
 
 import component.MenuLink
 import component.menuLink
+import kotlinext.js.js
 import react.*
 import react.native.Text
 import react.native.View
@@ -12,9 +13,17 @@ class MenuProps : RProps
 val navigationView : () -> ReactElement? = {
     buildElement {
         View {
+            attrs {
+                style = js {
+                    flex = 1
+                    flexDirection = "column"
+                }
+            }
+/*
             Text {
                 +"hdjhhjdsjfdjjkjhdsfj"
             }
+*/
             menuLink("Home", "/")
             //trade
             menuLink("Watchlist")

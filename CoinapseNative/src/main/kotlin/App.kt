@@ -1,11 +1,10 @@
-import kotlinext.js.js
+import common.Reducer
 import kotlinext.js.jsObject
 import react.RBuilder
 import react.RComponent
 import react.RProps
 import react.RState
 import react.native.DrawerLayoutAndroid
-import react.native.StyleSheet
 import react.native.View
 import react.redux.Provider
 import react.router.native.NativeRouter
@@ -14,37 +13,17 @@ import redux.applyMiddleware
 import redux.combineReducers
 import redux.compose
 import redux.createStore
-import screen.About
-import screen.home
-import screen.navigationView
+import screen.*
 
-interface StyleNames {
-    var common : dynamic
-    var menu : dynamic
-    var menuItem : dynamic
-}
-val styles : StyleNames = StyleSheet.create(jsObject<StyleNames> {
-    common = js {
-        //backgroundColor = "powderblue"
-        flex = 1
-    }
-    menu = js {
-        //backgroundColor = "powderblue"
-        flex = 1
-    }
-    menuItem = js {
-        flex = 1
-        //flexDirection = "row"
-    }
-})
-
-interface FakeState {
-    var name: String
-}
 
 interface AppState {
-    var fake : FakeState
+    var home : HomeState
 }
+
+interface AppReducers {
+    var home : Reducer<HomeState>
+}
+
 var _store : Any = "MIKIIII"
 
 class App(props: RProps) : RComponent<RProps, RState>(props) {
@@ -70,12 +49,15 @@ class App(props: RProps) : RComponent<RProps, RState>(props) {
     val _counterReducer = module.counterReducer
     val _todoReducer = module.todoReducer
 */
-        val fakeReducer = fun(state : Any?, action : dynamic): Any? {
-            if (state == null) return jsObject {}
+
+/*
+        val fakeReducer : Reducer<Any> = fun(state : Any?, action : dynamic): Any {
+            if (state == null) return js {}
             return state
         }
-        val rootReducer = combineReducers(kotlinext.js.js {
-            reducer = fakeReducer
+*/
+        val rootReducer = combineReducers(jsObject <AppReducers>{
+            home = homeReducer
             /*
                         routing = _routerReducer
                     counter = _counterReducer
@@ -100,8 +82,7 @@ class App(props: RProps) : RComponent<RProps, RState>(props) {
                     attrs {
                         drawerWidth = 300
                         renderNavigationView = navigationView
-//                      Menu(screen.MenuProps())
-                    }//screen.getNavigationView//Menu::class.js
+                    }
                     View {
                         Route {
                             attrs {
