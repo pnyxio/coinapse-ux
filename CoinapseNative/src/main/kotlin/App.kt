@@ -1,9 +1,11 @@
+import kotlinext.js.js
 import kotlinext.js.jsObject
 import react.RBuilder
 import react.RComponent
 import react.RProps
 import react.RState
 import react.native.DrawerLayoutAndroid
+import react.native.StyleSheet
 import react.native.View
 import react.redux.Provider
 import react.router.native.NativeRouter
@@ -12,7 +14,29 @@ import redux.applyMiddleware
 import redux.combineReducers
 import redux.compose
 import redux.createStore
+import screen.About
+import screen.home
+import screen.navigationView
 
+interface StyleNames {
+    var common : dynamic
+    var menu : dynamic
+    var menuItem : dynamic
+}
+val styles : StyleNames = StyleSheet.create(jsObject<StyleNames> {
+    common = js {
+        //backgroundColor = "powderblue"
+        flex = 1
+    }
+    menu = js {
+        //backgroundColor = "powderblue"
+        flex = 1
+    }
+    menuItem = js {
+        flex = 1
+        //flexDirection = "row"
+    }
+})
 
 interface FakeState {
     var name: String
@@ -76,14 +100,14 @@ class App(props: RProps) : RComponent<RProps, RState>(props) {
                     attrs {
                         drawerWidth = 300
                         renderNavigationView = navigationView
-//                      Menu(MenuProps())
-                    }//navigationView//Menu::class.js
+//                      Menu(screen.MenuProps())
+                    }//screen.getNavigationView//Menu::class.js
                     View {
                         Route {
                             attrs {
                                 path = "/"
                                 exact = true
-                                component = {home()}//Home::class.js
+                                component = {home()}//screen.Home::class.js
                             }
                         }
                         Route {
