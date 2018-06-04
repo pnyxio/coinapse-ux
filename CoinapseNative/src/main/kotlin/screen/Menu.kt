@@ -6,6 +6,8 @@ import kotlinext.js.js
 import react.*
 import react.native.Text
 import react.native.View
+import react.native.column
+import react.native.mkStyle
 import react.router.native.Link
 
 class MenuProps : RProps
@@ -14,9 +16,9 @@ val navigationView : () -> ReactElement? = {
     buildElement {
         View {
             attrs {
-                style = js {
+                style = mkStyle {
                     flex = 1
-                    flexDirection = "column"
+                    flexDirection = column
                 }
             }
 /*
@@ -26,14 +28,14 @@ val navigationView : () -> ReactElement? = {
 */
             menuLink("Home", "/")
             //trade
-            menuLink("Watchlist")
+            //menuLink("Watchlist")
             menuLink("Portfolio")
-            menuLink("News Feed")
+            //menuLink("News Feed")
             //discover
             menuLink("Trade Markets")
-            menuLink("?Search Markets")
-            menuLink("Get Signals")
-            menuLink("Managed Trading")
+            //menuLink("?Search Markets")
+            //menuLink("Get Signals")
+            //menuLink("Managed Trading")
             //more
             menuLink("Help")
             menuLink("Transfer Funds")
@@ -54,6 +56,7 @@ class Menu(props: RProps) : RComponent<RProps, RState>(props) {
         Link {
             attrs {
                 to = "/"
+
             }
             Text {
                 +"HOME"

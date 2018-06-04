@@ -22,6 +22,8 @@ version = '0.0.1-SNAPSHOT'
 
 apply plugin: 'kotlin2js'
 apply plugin: 'org.jetbrains.kotlin.frontend'
+//apply plugin: 'kotlin'
+apply plugin: 'kotlinx-serialization'
 
 repositories {
     mavenCentral()
@@ -32,6 +34,7 @@ repositories {
     maven {
         url  "https://dl.bintray.com/kotlin/kotlinx.html"
     }
+    maven { url "https://kotlin.bintray.com/kotlinx" }
 }
 
 dependencies {
@@ -43,6 +46,10 @@ dependencies {
     compile 'org.jetbrains.kotlinx:kotlinx-html:0.6.9'
 
     compile 'com.nominanuda:kjs-externals:1.0.0-pre.1-kotlin-1.2.40'
+    compile 'com.nominanuda:kotlin-react-native:1.0.0-pre.1-kotlin-1.2.40'
+
+    compile "org.jetbrains.kotlinx:kotlinx-serialization-runtime-js:$serialization_version"
+
 
 }
 

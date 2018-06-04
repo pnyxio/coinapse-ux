@@ -2,9 +2,7 @@ package screen
 
 import AppState
 import common.*
-import kotlinext.js.JsFunction1
-import kotlinext.js.invoke
-import kotlinext.js.jsObject
+import kotlinext.js.*
 import react.*
 import react.native.Image
 import react.native.Text
@@ -54,7 +52,6 @@ val homeReducer : Reducer<HomeState> = fun(state : HomeState?, action : dynamic)
 
 
 fun RBuilder.home(): ReactElement {
-    //AppState) -> HomeProps
     val mapStateToProps : ToPropsMapper<AppState> =  { state : AppState ->
         state.home
     }

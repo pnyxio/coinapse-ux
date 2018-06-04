@@ -1,24 +1,25 @@
 import kotlinext.js.js
 import kotlinext.js.jsObject
-import react.native.StyleSheet
+import react.native.*
+
 
 interface StyleNames {
-    var common : dynamic
-    var menu : dynamic
-    var menuItem : dynamic
+    var common : Style
+    var menu : Style
+    var menuItem : Style
 }
 val styles : StyleNames = StyleSheet.create(jsObject<StyleNames> {
-    common = js {
+    common = mkStyle {
         //backgroundColor = "powderblue"
         flex = 1
-        flexDirection = "row"
+        flexDirection = row//"react.native.getRow"
     }
-    menu = js {
+    menu = mkStyle {
         //backgroundColor = "powderblue"
         flex = 1
     }
-    menuItem = js {
+    menuItem = mkStyle {
         flex = 1
-        //flexDirection = "row"
+        //flexDirection = "react.native.getRow"
     }
 })

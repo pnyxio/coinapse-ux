@@ -1,4 +1,5 @@
 import common.Reducer
+import component._DrawerLayoutAndroidRef
 import kotlinext.js.jsObject
 import react.RBuilder
 import react.RComponent
@@ -79,6 +80,9 @@ class App(props: RProps) : RComponent<RProps, RState>(props) {
             }
             NativeRouter {
                 DrawerLayoutAndroid {
+                    ref {
+                        _DrawerLayoutAndroidRef = it
+                    }
                     attrs {
                         drawerWidth = 300
                         renderNavigationView = navigationView
