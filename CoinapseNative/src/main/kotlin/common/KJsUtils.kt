@@ -14,6 +14,17 @@ fun <T> T.copyToDyn(vararg src : Any) : T {
     return o
 }
 
+fun beget(o: Any) : dynamic {
+    return Object.create(o).asDynamic()
+}
+
+fun beget(o: Any, builder: dynamic.() -> Unit) : dynamic {
+    val x = Object.create(o).asDynamic()
+    builder.invoke(x)
+    return x
+}
+
+
 fun <T> T.copyToDyn(vararg src : Any, builder: T.() -> Unit) : T {
     val o = this.copyToDyn(src)
     assign(o, builder)
