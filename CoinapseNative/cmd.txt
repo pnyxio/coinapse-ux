@@ -24,3 +24,9 @@ fix haul config
 yarn add source-map-loader // --dev ??
 yarn add react-router-native
 yarn add redux redux-thunk react-redux
+
+
+
+
+
+Android/Sdk/emulator/emulator @Nexus_5X_API_27_x86 -use-system-libs

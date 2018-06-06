@@ -2,6 +2,7 @@ package screen
 
 import AppState
 import common.*
+import img.boxed_cross_32
 import kotlinext.js.*
 import react.*
 import react.native.Image
@@ -10,6 +11,8 @@ import react.native.View
 import react.redux.connect
 import redux.bindActionCreators
 import styles
+import com.nominanuda.krui.redux.*
+
 
 interface HomeProps : RProps
 {
@@ -29,7 +32,7 @@ class Home(props: HomeProps) : RComponent<HomeProps, RState>(props) {
             View {
                 Image {
                     attrs {
-                        source = kotlinext.js.require("../../src/main/kotlin/img/boxed_cross_32.png")
+                        source = boxed_cross_32
                     }
                 }
             }
@@ -45,7 +48,7 @@ class Home(props: HomeProps) : RComponent<HomeProps, RState>(props) {
 
 val homeReducer : Reducer<HomeState> = fun(state : HomeState?, action : dynamic): HomeState {
     if (state == null) return jsObject<HomeState> { name = "my lord3" }//js {}
-    return state.copyToDyn {
+    return state.assign {
         name = "buzzurro"
     }
 }

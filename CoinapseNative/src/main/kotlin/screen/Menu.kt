@@ -1,13 +1,13 @@
 package screen
 
+import com.nominanuda.krui.react.native.column
+import com.nominanuda.krui.react.native.mkStyle
 import component.MenuLink
 import component.menuLink
 import kotlinext.js.js
 import react.*
 import react.native.Text
 import react.native.View
-import react.native.column
-import react.native.mkStyle
 import react.router.native.Link
 
 class MenuProps : RProps
@@ -32,7 +32,7 @@ val navigationView : () -> ReactElement? = {
             menuLink("Portfolio")
             //menuLink("News Feed")
             //discover
-            menuLink("Trade Markets")
+            menuLink("Trade Markets", "/markets")
             //menuLink("?Search Markets")
             //menuLink("Get Signals")
             //menuLink("Managed Trading")

@@ -5,11 +5,11 @@ import react.*
 
 internal val protoObject : dynamic = js("new Object()")
 
-fun <T> T.copyToDyn(vararg src : Any) : T {
+fun <T> T.assign(vararg src : Any) : T {
     val o = js {}
     assign(o, this)
     for (s in src) {
-        assign(o, s)
+        kotlinext.js.assign(o, s)
     }
     return o
 }
@@ -25,17 +25,13 @@ fun beget(o: Any, builder: dynamic.() -> Unit) : dynamic {
 }
 
 
-fun <T> T.copyToDyn(vararg src : Any, builder: T.() -> Unit) : T {
-    val o = this.copyToDyn(src)
+fun <T> T.assign(vararg src : Any, builder: T.() -> Unit) : T {
+    val o = this.assign(src)
     assign(o, builder)
     return o
 }
 
 
-typealias Reducer<T> = (/*state :*/ T?, /*action :*/ dynamic) -> T
-typealias ToPropsMapper<T> = (T) -> RProps
-typealias Dispatch = JsFunction1<Any,Nothing>
-typealias DispatchToPropsMapper<T> = (Dispatch) -> RProps
 
 
 operator fun <P : RProps> RClass<P>.invoke() =

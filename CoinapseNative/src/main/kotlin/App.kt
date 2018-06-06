@@ -1,12 +1,6 @@
-import common.Reducer
 import component._DrawerLayoutAndroidRef
 import kotlinext.js.jsObject
-import react.RBuilder
-import react.RComponent
-import react.RProps
-import react.RState
 import react.native.DrawerLayoutAndroid
-import react.native.View
 import react.redux.Provider
 import react.router.native.NativeRouter
 import react.router.native.Route
@@ -14,69 +8,53 @@ import redux.applyMiddleware
 import redux.combineReducers
 import redux.compose
 import redux.createStore
+import redux.thunk.default
 import screen.*
-
+import com.nominanuda.krui.redux.*
+import kotlinext.js.js
+import react.*
 
 interface AppState {
     var home : HomeState
+    var markets : MarketsState
 }
 
 interface AppReducers {
     var home : Reducer<HomeState>
+    var markets : Reducer<MarketsState>
 }
 
-var _store : Any = "MIKIIII"
+
+
 
 class App(props: RProps) : RComponent<RProps, RState>(props) {
+    val reduxStore : Any
     init {
-        //    val _history = createBrowserHistory()
-
-        val initialState = kotlinext.js.js {}
+        val initialState = js {}
         val enhancers : Array<Any> = arrayOf()
-
-        val _thunk = redux.thunk.default
-        val middleware = arrayOf(
-                _thunk
-//            ,routerMiddleware(_history)
-        )
+        val _thunk = default
+        val middleware = arrayOf(_thunk/*,routerMiddleware*/)
 
         val composedEnhancers = compose(
                 applyMiddleware(*middleware),
                 *enhancers
         )
-
-//        val _routerReducer = routerReducer
-/*
-    val _counterReducer = module.counterReducer
-    val _todoReducer = module.todoReducer
-*/
-
-/*
-        val fakeReducer : Reducer<Any> = fun(state : Any?, action : dynamic): Any {
-            if (state == null) return js {}
-            return state
-        }
-*/
-        val rootReducer = combineReducers(jsObject <AppReducers>{
+        val rootReducer = combineReducers(jsObject<AppReducers>{
             home = homeReducer
-            /*
-                        routing = _routerReducer
-                    counter = _counterReducer
-                    todo = _todoReducer
-            */
-        } as Any)//TODO remove as Any
+            markets = marketsReducer
+        })
 
-        _store = createStore(
+        reduxStore = createStore(
                 rootReducer,
                 initialState,
                 composedEnhancers
         )
 
     }
-    override fun RBuilder.render(): dynamic {
-        return Provider() {
+    override fun RBuilder.render() {
+        Provider() {
             attrs {
-                store = _store
+                store = reduxStore
             }
             NativeRouter {
                 DrawerLayoutAndroid {
@@ -87,19 +65,23 @@ class App(props: RProps) : RComponent<RProps, RState>(props) {
                         drawerWidth = 300
                         renderNavigationView = navigationView
                     }
-                    View {
-                        Route {
-                            attrs {
-                                path = "/"
-                                exact = true
-                                component = {home()}//screen.Home::class.js
-                            }
+                    Route {
+                        attrs {
+                            path = "/"
+                            exact=true
+                            component = {home()}//screen.Home::class.js
                         }
-                        Route {
-                            attrs {
-                                path = "/about"
-                                component = About::class.js
-                            }
+                    }
+                    Route {
+                        attrs {
+                            path = "/markets"
+                            component = {markets()}
+                        }
+                    }
+                    Route {
+                        attrs {
+                            path = "/about"
+                            component = About::class.js
                         }
                     }
                 }
@@ -108,6 +90,4 @@ class App(props: RProps) : RComponent<RProps, RState>(props) {
     }
 }
 
-fun RBuilder.app() = child(App::class) {
-
-}
+fun RBuilder.app() = child(App::class) {}

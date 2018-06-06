@@ -1,3 +1,5 @@
+import com.nominanuda.krui.react.native.mkStyle
+import com.nominanuda.krui.react.native.row
 import kotlinext.js.js
 import kotlinext.js.jsObject
 import react.native.*
