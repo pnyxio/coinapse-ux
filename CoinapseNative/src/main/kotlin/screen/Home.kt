@@ -1,6 +1,10 @@
 package screen
 
 import AppState
+import com.nominanuda.krui.react.native.column
+import com.nominanuda.krui.react.native.mkStyle
+import com.nominanuda.krui.react.native.row
+import com.nominanuda.krui.react.native.widthPercentageToDP
 import common.*
 import img.boxed_cross_32
 import kotlinext.js.*
@@ -12,6 +16,8 @@ import react.redux.connect
 import redux.bindActionCreators
 import styles
 import com.nominanuda.krui.redux.*
+import component.crossBox
+import component.screenSpacer
 
 
 interface HomeProps : RProps
@@ -23,23 +29,25 @@ interface HomeState : HomeProps {
 }
 
 class Home(props: HomeProps) : RComponent<HomeProps, RState>(props) {
-    override fun RBuilder.render(): dynamic {
-        return View {
-            attrs {
-                style = styles.common//TODO manage style top down from home ??
-            }
-
+    override fun RBuilder.render() {
+        View {
             View {
-                Image {
-                    attrs {
-                        source = boxed_cross_32
+                attrs {
+                    style = styles.common//TODO manage style top down from markets ??
+                }
+
+                View {
+                    Image {
+                        attrs {
+                            source = boxed_cross_32
+                        }
                     }
                 }
-            }
-            View {
-                Text {
-                    + "Hello  !!!!"
-                    + props.name
+                View {
+                    Text {
+                        +"Hello  !!!!"
+                        +props.name
+                    }
                 }
             }
         }

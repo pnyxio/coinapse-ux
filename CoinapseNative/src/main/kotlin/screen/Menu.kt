@@ -1,5 +1,6 @@
 package screen
 
+import MENU_WIDTH
 import com.nominanuda.krui.react.native.column
 import com.nominanuda.krui.react.native.mkStyle
 import component.MenuLink
@@ -9,6 +10,7 @@ import react.*
 import react.native.Text
 import react.native.View
 import react.router.native.Link
+import styles
 
 class MenuProps : RProps
 
@@ -16,10 +18,7 @@ val navigationView : () -> ReactElement? = {
     buildElement {
         View {
             attrs {
-                style = mkStyle {
-                    flex = 1
-                    flexDirection = column
-                }
+                style = styles.menu
             }
 /*
             Text {

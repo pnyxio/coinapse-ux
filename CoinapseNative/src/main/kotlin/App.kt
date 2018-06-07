@@ -11,6 +11,7 @@ import redux.createStore
 import redux.thunk.default
 import screen.*
 import com.nominanuda.krui.redux.*
+import common.ElementMemoizer
 import kotlinext.js.js
 import react.*
 
@@ -24,6 +25,9 @@ interface AppReducers {
     var markets : Reducer<MarketsState>
 }
 
+object Screens {
+
+}
 
 
 
@@ -62,7 +66,7 @@ class App(props: RProps) : RComponent<RProps, RState>(props) {
                         _DrawerLayoutAndroidRef = it
                     }
                     attrs {
-                        drawerWidth = 300
+                        drawerWidth = MENU_WIDTH
                         renderNavigationView = navigationView
                     }
                     Route {
@@ -75,7 +79,7 @@ class App(props: RProps) : RComponent<RProps, RState>(props) {
                     Route {
                         attrs {
                             path = "/markets"
-                            component = {markets()}
+                            component = { ElementMemoizer.of(this@render, this@Route).cacheElement {  Screens.markets() }}
                         }
                     }
                     Route {

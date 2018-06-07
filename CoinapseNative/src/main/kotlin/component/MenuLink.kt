@@ -27,18 +27,12 @@ class MenuLink(props: MenuLinkProps) : RComponent<MenuLinkProps, RState>(props) 
     override fun RBuilder.render() {
         View {
             attrs {
-                style = mkStyle {
-                    flex = 1
-                    flexDirection = row
-                    //alignItems = "center"
-                    borderColor = "black"
-                    borderWidth = 1
-                }
+                style = props.style
             }
             View {
                 Image {
                     attrs {
-                        source = props.icon//boxed_cross_32//require(props.icon)
+                        source = props.icon
                     }
                 }
             }
@@ -52,29 +46,12 @@ class MenuLink(props: MenuLinkProps) : RComponent<MenuLinkProps, RState>(props) 
                     attrs {
                         to = props.to
                         onPress = {_DrawerLayoutAndroidRef?.closeDrawer()}
-//                        component = {buildElement {
-//                            TouchableHighlight {
-//                                attrs {
-//                                    onPress = {_DrawerLayoutAndroidRef?.closeDrawer()}
-//                                }
-//                                Text {
-//                                    attrs {
-//                                        style = mkStyle {
-//                                            fontSize = 24
-//                                            fontFamily = "sans-serif"
-//
-//                                        }
-//                                    }
-//                                    +props.title
-//                                }
-//                            }
-//                        }}
                     }
                     Text {
                         attrs {
                             style = mkStyle {
                                 fontSize = 24
-                                fontFamily = "sans-serif"
+//                                fontFamily = "sans-serif"
 
                             }
                         }
@@ -86,7 +63,7 @@ class MenuLink(props: MenuLinkProps) : RComponent<MenuLinkProps, RState>(props) 
     }
 }
 
-fun RBuilder.menuLink(_title : String, _to : String = "#", _style : Style? = styles.menu, _icon : Img = boxed_cross_32) = child(MenuLink::class) {
+fun RBuilder.menuLink(_title : String, _to : String = "#", _style : Style? = styles.menuItem, _icon : Img = boxed_cross_32) = child(MenuLink::class) {
     attrs {
         style = _style
         to  = _to

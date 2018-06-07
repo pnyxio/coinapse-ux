@@ -30,3 +30,4 @@ yarn add redux redux-thunk react-redux
 
 
 Android/Sdk/emulator/emulator @Nexus_5X_API_27_x86 -use-system-libs
+https://medium.com/building-with-react-native/how-to-develop-responsive-uis-with-react-native-1x03-a448097c9503

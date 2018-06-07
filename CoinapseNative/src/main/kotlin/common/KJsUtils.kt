@@ -36,3 +36,27 @@ fun <T> T.assign(vararg src : Any, builder: T.() -> Unit) : T {
 
 operator fun <P : RProps> RClass<P>.invoke() =
         createElement(this, js {})
+
+class ElementMemoizer private constructor(private val rBuilder: RBuilder) {
+    private var cached : ReactElement? = null
+
+    fun cacheElement(render : /*RBuilder.*/() -> ReactElement) : ReactElement {
+        if(cached == null) {
+            cached = /*rBuilder.*/render()
+        }
+        return cached!!
+    }
+
+    companion object {
+        private val memoizersByBuilder = HashMap<RElementBuilder<RProps>, ElementMemoizer>()
+        fun of(rBuilder: RBuilder, x : RElementBuilder<RProps>) : ElementMemoizer {
+            if(memoizersByBuilder.containsKey(x)) {
+                return memoizersByBuilder[x]!!
+            } else {
+                val em = ElementMemoizer(rBuilder)
+                memoizersByBuilder[x] = em
+                return em
+            }
+        }
+    }
+}
