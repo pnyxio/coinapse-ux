@@ -94,4 +94,4 @@ class App(props: RProps) : RComponent<RProps, RState>(props) {
     }
 }
 
-fun RBuilder.app() = child(App::class) {}
+//TODO removeme fun RBuilder.app() = child<RProps,App>() {}

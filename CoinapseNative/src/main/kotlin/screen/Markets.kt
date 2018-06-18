@@ -1,28 +1,21 @@
 package screen
 
 import AppState
+import LAYOUT
 import Screens
-import com.nominanuda.krui.react.native.heightPercentageToDP
-import com.nominanuda.krui.react.native.mkStyle
-import com.nominanuda.krui.react.native.row
-import com.nominanuda.krui.react.native.widthPercentageToDP
+import com.nominanuda.krui.react.native.*
 import com.nominanuda.krui.redux.Dispatch
 import com.nominanuda.krui.redux.DispatchToPropsMapper
 import com.nominanuda.krui.redux.Reducer
 import com.nominanuda.krui.redux.ToPropsMapper
-import common.assign
+import common.copy
 import common.invoke
-import component.crossBox
-import component.screenSpacer
-import img.boxed_cross_32
+import component.*
 import kotlinext.js.jsObject
 import react.*
-import react.native.Image
-import react.native.Text
-import react.native.View
+import react.native.Section
 import react.redux.connect
 import redux.bindActionCreators
-import styles
 
 
 interface MarketsProps : RProps
@@ -33,23 +26,62 @@ interface MarketsProps : RProps
 interface MarketsState : MarketsProps {
 }
 
-interface ReactReduxComponentXxx {
-//    fun makeRenderer() : RBuilder.() -> Unit
-}
-
-object fac : ReactReduxComponentXxx {
-
-}
-
 class Markets(props: MarketsProps) : RComponent<MarketsProps, RState>(props) {
-
+val babau = arrayOf(
+        jsObject<MarketProps> {
+            key = "2"
+            title = "GOOGL"
+            ask = "1860.09"
+            bid = "1861.00"
+            diff = "-29.31 (-5.06%)"
+            diffPositive = true
+        },
+        jsObject<MarketProps> {
+            key = "1"
+            title = "AAPL5"
+            ask = "160.09"
+            bid = "161.99"
+            diff = "-9.63 (-0.19%)"
+            diffPositive = false
+        },
+        jsObject<MarketProps> {
+            key = "11"
+            title = "AAPL5"
+            ask = "160.09"
+            bid = "161.99"
+            diff = "-9.63 (-0.19%)"
+            diffPositive = false
+        },
+        jsObject<MarketProps> {
+            key = "12"
+            title = "AAPL5"
+            ask = "160.09"
+            bid = "161.99"
+            diff = "-9.63 (-0.19%)"
+            diffPositive = false
+        },
+        jsObject<MarketProps> {
+            key = "13"
+            title = "AAPL5"
+            ask = "160.09"
+            bid = "161.99"
+            diff = "-9.63 (-0.19%)"
+            diffPositive = false
+        },
+        jsObject<MarketProps> {
+            key = "14"
+            title = "AAPL5"
+            ask = "160.09"
+            bid = "161.99"
+            diff = "-9.63 (-0.19%)"
+            diffPositive = false
+        }
+)
     override fun RBuilder.render() {
         View {
             attrs {
                 style = mkStyle {
-                    backgroundColor = "yellow"
                     flex = 1
-                    //flexDirection = column
                 }
             }
             View {
@@ -57,62 +89,61 @@ class Markets(props: MarketsProps) : RComponent<MarketsProps, RState>(props) {
                     style = mkStyle {
                         borderColor = "red"
                         borderWidth = 1
-//                        height = 30
                         flex = 1
                         flexDirection = row
                         flexShrink = 1
                         flexGrow = 0
-                        flexBasis = 30
+                        flexBasis = "10%"
                     }
                 }
-                Text { +props.name }
+                Text {
+                    +props.name
+                    +" - 1"}
             }
-            screenSpacer(_title = "FEATURED MARKETS")
-            View {
-                attrs {
-                    style = mkStyle {
-                        borderColor = "red"
-                        borderWidth = 1
-                        //height = 40
-                        flexBasis = 300
-                        flex = 1
-                        flexDirection = row
-                        flexShrink = 1
-                        flexGrow = 1
+            ScrollView {
+                screenSpacer(_title = "FEATURED MARKETS")
+                FlatList {
+                    attrs {
+                        style = mkStyle {
+                            height = LAYOUT.columnDp * 4
+                        }
+                        data = babau
+                        renderItem = {
+                            marketSlide(it.item, LAYOUT.columnDp * 4)
+                        }
+                        horizontal = true
                     }
                 }
-                crossBox(widthPercentageToDP(100.0).toInt(), 200)
-//                Image {
-//                    attrs {
-//                        source = boxed_cross_32
-//                        style = mkStyle {
-//                            height = 200
-//                            width = 300
-//                        }
-//                    }
-//                }
-            }
-            screenSpacer(_title = "INDICES")
-            View {
-                attrs {
-                    style = mkStyle {
-                        borderColor = "red"
-                        borderWidth = 1
-                        flexBasis = 30
-                        //height = 30
-                        flexShrink = 1
-                        flexGrow = 0
+                SectionList {
+                    attrs {
+                        sections = arrayOf(jsObject<Section> {
+                            title = "INDICES"
+                            data = babau
+                        }, jsObject<Section> {
+                            title = "ETH TOKENS"
+                            data = babau
+                        })
+                        renderItem = {
+                            marketRow((it.item.unsafeCast<MarketProps>()).apply {
+                                style = mkStyle {
+                                    //backgroundColor = "orange"
+                                }
+                            })
+                        }
+                        renderSectionHeader = { screenSpacer(it.section.title) }
+                        renderSectionFooter = { screenSpacer("LINK TO ALL") }
                     }
                 }
-                Text { +"Hello  !!!!" }
             }
         }
     }
 }
 
+
 val marketsReducer : Reducer<MarketsState> = fun(state : MarketsState?, action : dynamic): MarketsState {
+    print(action)//TODO removeme
     if (state == null) return jsObject<MarketsState> { name = "my MARKET" }//js {}
-    return state.assign {
+    return state.copy {
         name = "buzzurro"
     }
 }
@@ -126,15 +157,10 @@ fun Screens.markets() : ReactElement {
         bindActionCreators(jsObject<MarketsProps>{
         }, dispatch)
     }
-    console.info("INTO RBuilder.markets")
-    console.info("widthPercentageToDP"+ widthPercentageToDP(100.0))
-    console.info("heightPercentageToDP"+ heightPercentageToDP(100.0))
 
-    var singletonEl : ReactElement? = null
-    singletonEl = (connect(mapStateToProps, mapDispatchToProps)(
+    return (connect(mapStateToProps, mapDispatchToProps)(
             { p : MarketsProps -> Markets(p)}
     ))()
-    return singletonEl!!
     //return (connect(mapStateToProps, mapDispatchToProps)(Markets::class.js))()
 }
 

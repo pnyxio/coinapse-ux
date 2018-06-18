@@ -1,23 +1,14 @@
 package screen
 
 import AppState
-import com.nominanuda.krui.react.native.column
-import com.nominanuda.krui.react.native.mkStyle
-import com.nominanuda.krui.react.native.row
-import com.nominanuda.krui.react.native.widthPercentageToDP
+import LAYOUT
+import com.nominanuda.krui.react.native.*
 import common.*
-import img.boxed_cross_32
 import kotlinext.js.*
 import react.*
-import react.native.Image
-import react.native.Text
-import react.native.View
 import react.redux.connect
 import redux.bindActionCreators
-import styles
 import com.nominanuda.krui.redux.*
-import component.crossBox
-import component.screenSpacer
 
 
 interface HomeProps : RProps
@@ -27,36 +18,74 @@ interface HomeProps : RProps
 
 interface HomeState : HomeProps {
 }
+//val col = "7.042253521126761%"
+//val gutter = "1.408450704225352%"
 
 class Home(props: HomeProps) : RComponent<HomeProps, RState>(props) {
     override fun RBuilder.render() {
         View {
-            View {
-                attrs {
-                    style = styles.common//TODO manage style top down from markets ??
+            attrs {
+                style = mkStyle {
+                    //width = "100%"
+                    flex = 1
+                    flexDirection = row
                 }
-
+            }
+            for(i in 1..11) {
                 View {
-                    Image {
-                        attrs {
-                            source = boxed_cross_32
+                    attrs {
+                        style = mkStyle {
+                            backgroundColor = "yellow"
+                            width = LAYOUT.columnDp
+                            height = "100%"
                         }
                     }
                 }
                 View {
-                    Text {
-                        +"Hello  !!!!"
-                        +props.name
+                    attrs {
+                        style = mkStyle {
+                            backgroundColor = "pink"
+                            width = LAYOUT.gutterDp
+                            height = "100%"
+                        }
                     }
                 }
             }
+            View {
+                attrs {
+                    style = mkStyle {
+                        backgroundColor = "yellow"
+                        width = LAYOUT.columnDp
+                        height = "100%"
+                    }
+                }
+            }
+//            View {
+//                attrs {
+//                    style = STYLES.common//TODO manage style top down from markets ??
+//                }
+//                View {
+//                    Image {
+//                        attrs {
+//                            source = boxed_cross_32
+//                        }
+//                    }
+//                }
+//                View {
+//                    Text {
+//                        +"Hello  !!!!"
+//                        +props.name
+//                    }
+//                }
+//            }
         }
     }
 }
 
 val homeReducer : Reducer<HomeState> = fun(state : HomeState?, action : dynamic): HomeState {
+    print(action)//TODO removeme
     if (state == null) return jsObject<HomeState> { name = "my lord3" }//js {}
-    return state.assign {
+    return state.copy {
         name = "buzzurro"
     }
 }

@@ -1,18 +1,16 @@
 package component
 
-import com.nominanuda.krui.react.native.mkStyle
-import com.nominanuda.krui.react.native.row
+import com.nominanuda.krui.react.native.*
 import img.Img
 import img.boxed_cross_32
 import react.RBuilder
 import react.RComponent
 import react.RState
 import react.router.native.Link
-import styles
-import kotlinext.js.*
-import react.buildElement
+import common.copy
+import hBox
+import kotlinext.js.js
 import react.native.*
-import kotlin.js.Console
 
 
 interface MenuLinkProps : StylableProps {
@@ -63,9 +61,25 @@ class MenuLink(props: MenuLinkProps) : RComponent<MenuLinkProps, RState>(props) 
     }
 }
 
-fun RBuilder.menuLink(_title : String, _to : String = "#", _style : Style? = styles.menuItem, _icon : Img = boxed_cross_32) = child(MenuLink::class) {
+//fun cacheStyle(builder : Style.() -> Unit) : Style {
+//    return StyleSheet.create(js {
+//        dummy = js(builder)
+//    }).dummy as Style
+//}
+//
+//internal val compStyle = cacheStyle {
+//
+//}
+
+internal val ownStyle : Style = hBox() { flex = 1 }
+fun RBuilder.menuLink(
+        _title : String,
+        _to : String = "#",
+        _style : Style = js {},
+        _icon : Img = boxed_cross_32
+) = child(MenuLink::class) {
     attrs {
-        style = _style
+        style = ownStyle.copy(_style)
         to  = _to
         title = _title
         icon = _icon

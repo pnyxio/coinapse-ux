@@ -1,17 +1,33 @@
+import com.nominanuda.kjs.application.Layout
+import com.nominanuda.kjs.application.LayoutImpl
 import com.nominanuda.krui.react.native.column
 import com.nominanuda.krui.react.native.mkStyle
 import com.nominanuda.krui.react.native.row
-import kotlinext.js.js
+import common.copy
 import kotlinext.js.jsObject
 import react.native.*
 
+val LAYOUT : Layout = LayoutImpl(0.2, 0.2)
 
-interface StyleNames {
+//TODO mv to framework
+val MENU_WIDTH = 300
+
+fun hBox(vararg src : Any, builder: Style.() -> Unit) : Style = mkStyle {
+    //flex = 1
+    flexDirection = row
+}.copy(*src) { builder() }
+
+
+//end TODO
+
+interface NamedStyles {
     var common : Style
     var menu : Style
-    var menuItem : Style
+//    var menuItem : Style
 }
-val styles : StyleNames = StyleSheet.create(jsObject<StyleNames> {
+
+
+val STYLES : NamedStyles = StyleSheet.create(jsObject<NamedStyles> {
     common = mkStyle {
         //backgroundColor = "powderblue"
         flex = 1
@@ -24,13 +40,7 @@ val styles : StyleNames = StyleSheet.create(jsObject<StyleNames> {
         borderWidth = 1
         width = MENU_WIDTH
     }
-    menuItem = mkStyle {
-        flex = 1
-        flexDirection = row
-        //alignItems = "center"
-        borderColor = "red"
-        borderWidth = 1
-    }
-})
+//    menuItem = hBox().assign() {
+//    }
+})// as NamedStyles
 
-val MENU_WIDTH = 300

@@ -1,24 +1,19 @@
 package screen
 
-import MENU_WIDTH
-import com.nominanuda.krui.react.native.column
-import com.nominanuda.krui.react.native.mkStyle
-import component.MenuLink
+import com.nominanuda.krui.react.native.*
 import component.menuLink
-import kotlinext.js.js
 import react.*
-import react.native.Text
-import react.native.View
 import react.router.native.Link
-import styles
+import STYLES
 
-class MenuProps : RProps
+interface MenuProps : RProps
+//fun RBuilder.view(handler: RHandler<ViewProps>) : ReactElement = child(ViewComponent::class, handler)
 
 val navigationView : () -> ReactElement? = {
     buildElement {
         View {
             attrs {
-                style = styles.menu
+                style = STYLES.menu
             }
 /*
             Text {

@@ -3,7 +3,6 @@ package component
 import com.nominanuda.krui.react.native.mkStyle
 import com.nominanuda.krui.react.native.row
 import img.boxed_cross_32
-import img.cross_box
 import react.RBuilder
 import react.RComponent
 import react.RState
@@ -28,7 +27,7 @@ class CrossBox(props: CrossBoxProps) : RComponent<CrossBoxProps, RState>(props) 
     }
 }
 
-fun RBuilder.crossBox(_width : Int = 32, _height : Int? = null) = child(CrossBox::class) {
+fun RBuilder.crossBox(_width : Number = 32, _height : Number? = null) = child(CrossBox::class) {
     val __height = _height ?: _width
     attrs {
         style = mkStyle {

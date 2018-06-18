@@ -26,8 +26,10 @@ yarn add react-router-native
 yarn add redux redux-thunk react-redux
 
 
-
+widthPercentageToDP 411.42857142857144
+heightPercentageToDP 683.4285714285714
 
 
 Android/Sdk/emulator/emulator @Nexus_5X_API_27_x86 -use-system-libs
-https://medium.com/building-with-react-native/how-to-develop-responsive-uis-with-react-native-1x03-a448097c9503
+https://medium.com/building-with-react-native/how-to-develop-responsive-uis-with-react-native-1x03-a448097c9503yarn haul start -- --platform android
+react-native run-android
